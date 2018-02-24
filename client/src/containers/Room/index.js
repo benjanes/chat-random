@@ -37,33 +37,41 @@ class Room extends Component {
 		// automatically bump to lobby by updating roomJoined
 		this.props.setRoomJoined(false);
 
-
 		e.preventDefault();
 	}
 
 	render() {
 		return (
 			<div>
+				{ this.props.partnerHandle && <h4>Your partner is "{ this.props.partnerHandle }"</h4> }
 				{ this.props.chatMsgs.map((chat, idx) => <p key={ idx }>{ chat.handle }: { chat.msg }</p>) }
 
-				<form
-					id='chat_msg_form'
-					onSubmit={ this.handleSubmit }
-				>
-					<input
-						type='text'
-						value={ this.state.msg }
-						onChange={ this.handleInput }
-					/>
-				</form>
-				<button
-					style={{ opacity: this.props.chatEnded ? 0.5 : 1 }}
-					type='submit'
-					form='chat_msg_form'
-					value='Send'
-				>
-					Send
-				</button>
+				{
+					!this.props.chatEnded &&
+					<form
+						id='chat_msg_form'
+						onSubmit={ this.handleSubmit }
+					>
+						<input
+							type='text'
+							value={ this.state.msg }
+							onChange={ this.handleInput }
+						/>
+						<button
+							style={{ opacity: this.props.chatEnded ? 0.5 : 1 }}
+							type='submit'
+							form='chat_msg_form'
+							value='Send'
+						>
+							Send
+						</button>
+					</form>
+				}
+
+				{
+					this.props.chatEnded &&
+					<p>The other user has left this chat. Click below to return to the lobby!</p>
+				}
 
 				<button
 					onClick={ this.handleLeaveBtnClick }
@@ -83,6 +91,7 @@ function mapStateToProps({ appData }) {
 	return {
 		chatMsgs: appData.chatMsgs,
 		userHandle: appData.userHandle,
+		partnerHandle: appData.partnerHandle,
 		chatEnded: appData.chatEnded
 	};
 }

@@ -14,7 +14,7 @@ app.use(express.static('public'));
 io.on('connection', function (socket) {
 
 	socket.on('setUserHandle', function(handle) {
-		chatController.addUserToLobby({ id: socket.id, handle, restrictedUsers: [], socket });
+		chatController.addUserToLobby({ id: socket.id, handle, restrictedUsers: [ socket.id ], socket });
 
 		socket.emit('userHandleSet', handle);
 	});

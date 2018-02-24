@@ -5,7 +5,11 @@ export const addSocketHandlers = (store, socket, actions) => {
 	// socket.on('userHandleSet', handle => store.dispatch(actions.setUserHandle(handle)));
 
 	socket.on('receiveChatMsg', msg => store.dispatch(actions.addChatMsg(msg)));
-	socket.on('joinRoom', () => store.dispatch(actions.setRoomJoined(true)));
+	socket.on('joinRoom', otherUserHandle => {
+		store.dispatch(actions.setPartnerHandle(otherUserHandle));
+		store.dispatch(actions.setRoomJoined(true));
+		store.dispatch(actions.setChatEnded(false));
+	});
 	socket.on('chatSessionEnded', () => store.dispatch(actions.setChatEnded(true)));
 };
 

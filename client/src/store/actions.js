@@ -15,6 +15,14 @@ export const setRoomJoined = bool => {
 	};
 };
 
+export const SET_PARTNER_HANDLE = 'SET_PARTNER_HANDLE';
+const setPartnerHandle = handle => {
+	return {
+		type: SET_PARTNER_HANDLE,
+		payload: handle
+	};
+};
+
 export const SET_CHAT_ENDED = 'SET_CHAT_ENDED';
 const setChatEnded = bool => {
 	return {
@@ -34,6 +42,7 @@ const addChatMsg = msg => {
 export const socketActions = {
 	setUserHandle,
 	setRoomJoined,
+	setPartnerHandle,
 	setChatEnded,
 	addChatMsg,
 };

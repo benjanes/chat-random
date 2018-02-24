@@ -1,24 +1,33 @@
 module.exports = (io, room, users, endRoom, backToLobby) => {
+
 	users.forEach((user, idx) => {
 		const otherUser = idx ? users[0] : users[1];
 
 		user.restrictedUsers.push(otherUser.socket.id);
 		user.socket.join(room);
 
-		io.to(room).emit('joinRoom');
+		io.to(user.socket.id).emit('joinRoom', otherUser.handle);
 
-		user.socket.on('sendChatMsg', msg => {
+		user.socket.on('sendChatMsg', handleSendChatMsg);
+		user.socket.on('userLeave', handleUserLeave);
+
+		function handleSendChatMsg(msg) {
 			user.socket.to(room).emit('receiveChatMsg', msg);
-		});
+		}
 
-		// write logic for leaving
-		user.socket.on('userLeave', () => {
-			// let the userB know that userA has left
-			console.log('send msg that session ended');
-			io.to(room).emit('chatSessionEnded');
-			endRoom(room);
+		function handleUserLeave() {
+			removeListeners();
 			backToLobby(user);
-		});
+			endRoom(room);
+			
+			if (room) io.to(otherUser.socket.id).emit('chatSessionEnded');
+			room = null;
+		}
+
+		function removeListeners() {
+			user.socket.removeListener('sendChatMsg', handleSendChatMsg);
+			user.socket.removeListener('userLeave', handleUserLeave);
+		}
 	});
 
 	return true;
