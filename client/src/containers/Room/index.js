@@ -23,6 +23,16 @@ class Room extends Component {
 	}
 
 	handleSubmit(e) {
+		if (/\\hop/.test(this.state.msg)) {
+			this.handleLeaveBtnClick();
+			e.preventDefault();
+			return;
+		}
+
+		if (/^\\delay\s\d+\s.+/.test(this.state.msg)) {
+			// todo: process the string
+		}
+
 		this.props.sendMsg({
 			msg: this.state.msg,
 			handle: this.props.userHandle
@@ -38,7 +48,7 @@ class Room extends Component {
 		// automatically bump to lobby by updating roomJoined
 		this.props.setRoomJoined(false);
 
-		e.preventDefault();
+		if (e) e.preventDefault();
 	}
 
 	render() {
