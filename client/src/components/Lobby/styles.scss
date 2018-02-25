@@ -29,6 +29,14 @@
 	}
 }
 
+@media (max-width: 700px) {
+	:local(.styles) {
+		padding: 60px 16px;
+		width: 100%;
+		box-sizing: border-box;
+	}
+}
+
 @keyframes btmSand {
 	0% {
 		y: 175;

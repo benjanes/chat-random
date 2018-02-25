@@ -12,6 +12,7 @@ body {
 p {
 	font-size: 14px;
 	font-weight: 300;
+	line-height: 1.4;
 }
 
 h1 {
@@ -80,5 +81,12 @@ button {
 	&:focus {
 		background-color: $offWhite;
 		color: #001;
+	}
+}
+
+@media (max-width: 700px) {
+	button:hover {
+		background-color: #001;
+		color: $offWhite;
 	}
 }
