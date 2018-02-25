@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:300,300i,400,700');
+@import './constants';
+
+body {
+	font-family: 'Roboto Mono', sans-serif;
+	background-color: #001;
+	color: $offWhite;
+	letter-spacing: 0.15em;
+	padding: 60px 100px;
+}
+
+p {
+	font-size: 14px;
+	font-weight: 300;
+}
+
+h1 {
+	font-weight: 700;
+	font-size: 50px;
+}
+
+input {
+	background-color: #001;
+	font-family: 'Roboto Mono', sans-serif;
+	border: 1px solid $offWhite;
+	caret-color: $offWhite;
+	color: $offWhite;
+	padding: 1em;
+	width: 265px;
+	height: 80px;
+	outline: 0;
+	text-align: center;
+	letter-spacing: 0.15em;
+	box-sizing: border-box;
+	transition: background-color 0.3s;
+
+	&::-webkit-input-placeholder { /* Chrome */
+		color: $offWhite;
+		opacity: 0.5;
+	}
+	&:-ms-input-placeholder { /* IE 10+ */
+		color: $offWhite;
+		opacity: 0.5;
+	}
+	&::-moz-placeholder { /* Firefox 19+ */
+		color: $offWhite;
+		opacity: 0.5;
+	}
+	&:-moz-placeholder { /* Firefox 4 - 18 */
+		color: $offWhite;
+		opacity: 0.5;
+	}
+
+	&:focus {
+		background-color: rgba(255,255,255,0.1);
+	}
+}
+
+button {
+	box-sizing: border-box;
+	background-color: #001;
+	border-color: $offWhite;
+	border-style: solid;
+	border-width: 1px 1px 1px 0;
+	color: $offWhite;
+	text-transform: uppercase;
+	font-family: 'Roboto Mono', sans-serif;
+	letter-spacing: 0.15em;
+	outline: 0;
+	height: 80px;
+	word-wrap: nowrap;
+	transition: background-color 0.3s, color 0.3s;
+	cursor: pointer;
+
+	&:hover {
+		background-color: $offWhite;
+		color: #001;
+	}
+
+	&:focus {
+		background-color: $offWhite;
+		color: #001;
+	}
+}

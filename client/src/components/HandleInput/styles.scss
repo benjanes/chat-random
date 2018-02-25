@@ -1,0 +1,29 @@
+@import '../../styles/constants';
+
+:local(.styles) {
+	padding-top: 60px;
+	// form {
+
+	// }
+	.form-holder {
+		display: flex;
+		width: 365px;
+		justify-content: center;
+		margin: 0 auto;
+
+	}
+
+	
+
+	.instructions {
+		font-weight: 300;
+		font-size: 14px;
+		width: 365px;
+		margin: 60px auto;
+
+		i {
+			font-style: italic;
+		}
+	}
+
+}

@@ -1,0 +1,127 @@
+@import '../../styles/constants';
+
+:local(.styles) {
+	padding: 60px 0;
+	width: 450px;
+	margin: 0 auto;
+
+	.partner-handle {
+		color: $orange;
+	}
+
+	.display-holder {
+		overflow: scroll;
+		height: 50vh;
+		width: 100%;
+		margin-top: 24px;
+		position: relative;
+	}
+
+	.overlay {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		left: 0;
+		top: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 80px;
+		color: #001;
+		box-sizing: border-box;
+		text-align: center;
+		font-weight: 700;
+		background-color: rgba(255,255,255,0.7);
+		animation: fadeIn 0.4s forwards;
+	}
+
+	.chat-list {
+		min-height: 100%;
+		padding: 20px;
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		background-color: rgba(255,255,255,0.07);
+
+		.chat-msg {
+			max-width: 80%;
+			display: inline-block;
+			color: #001;
+			padding: 16px;
+			margin-bottom: 20px;
+			font-size: 14px;
+			position: relative;
+
+			&:after {
+				content: '';
+				height: 0;
+				width: 0;
+				position: absolute;
+				top: 100%;
+				border-bottom: 6px solid transparent;
+			}
+
+			&.user {
+				background-color: $lightBlue;
+				align-self: flex-start;
+
+				&:after {
+					left: 0;
+					border-top: 2px solid $lightBlue;
+					border-left: 10px solid $lightBlue;
+					border-right: 4px solid transparent;
+				}
+			}
+
+			&.partner {
+				background-color: $orange;
+				align-self: flex-end;
+
+				&:after {
+					right: 0;
+					border-right: 10px solid $orange;
+					border-left: 4px solid transparent;
+					border-top: 2px solid $orange;
+				}
+			}
+		}
+	}
+
+	.chat-msg-form {
+		width: 100%;
+		margin: 0 auto 0 0;
+
+		input {
+			height: 50px;
+			width: 401px;
+			text-align: left;
+		}
+
+		button {
+			height: 50px;
+			width: 49px;
+		}
+	}
+
+	.instructions {
+		font-size: 12px;
+		margin-top: 24px;
+
+		b {
+			font-weight: 300;
+			color: $orange;
+
+			i {
+				font-weight: 300;
+				font-style: italic;
+			}
+		}
+	}
+
+	.hop-btn {
+		border-width: 1px;
+		height: 50px;
+		margin-top: 24px;
+	}
+}

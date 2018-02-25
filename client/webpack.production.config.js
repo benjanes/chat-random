@@ -2,7 +2,6 @@ const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
 	context: path.join(__dirname, 'src'),
@@ -23,11 +22,6 @@ module.exports = {
 				test: /\.scss$/,
 				include: path.join(__dirname, 'src'),
 				loader: ExtractTextPlugin.extract('css-loader!postcss-loader!sass-loader')
-			},
-			{
-				test: /\.json$/,
-				include: path.join(__dirname, 'src'),
-				loader: 'json-loader'
 			}
 		]
 	},
@@ -44,9 +38,6 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: './index.tpl.html'
 		}),
-		new CopyWebpackPlugin([
-			{ from: 'assets', to: 'assets' }
-		]),
 		// new webpack.optimize.UglifyJsPlugin({
 		// 	compressor: {
 		// 		warnings: false

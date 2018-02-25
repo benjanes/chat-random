@@ -1,10 +1,11 @@
 import React from 'react';
+import { styles } from './styles.scss';
 
 export default function Lobby(props) {
 
 	return (
-		<main>
-			<h2>No space available. Please stand by</h2>
+		<main className={ `${styles}` }>
+			<p>No one is currently waiting to chat. Please stand by.</p>
 		</main>
 	)
 }

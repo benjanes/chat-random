@@ -1,0 +1,38 @@
+@import '../../styles/constants';
+
+:local(.styles) {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+
+	h1 {
+		text-transform: uppercase;
+		color: $lightBlue;
+		letter-spacing: 0.11em;
+
+		span:last-of-type {
+			color: $orange;
+		}
+	}
+
+	h4 {
+		transform: translateY(-3px);
+		opacity: 1;
+		animation: fadeIn 0.5s forwards;
+		font-size: 14px
+	}
+
+	.user-handle {
+		color: $lightBlue;
+	}
+
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}

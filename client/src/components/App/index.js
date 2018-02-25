@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 // components
 import Header from '../../containers/Header';
-import SetHandle from '../SetHandle';
+import HandleInput from '../HandleInput';
 import Lobby from '../Lobby';
 import Room from '../../containers/Room';
 
@@ -17,7 +17,7 @@ class App extends Component {
 			<div>
 				<Header/>
 				
-					{ !this.props.userHandle && <SetHandle setUserHandle={ this.props.socketDispatch.setUserHandle }/> }
+					{ !this.props.userHandle && <HandleInput setUserHandle={ this.props.socketDispatch.setUserHandle }/> }
 					{ this.props.userHandle && !this.props.roomJoined && <Lobby /> }
 					{ this.props.userHandle && this.props.roomJoined &&
 						<Room

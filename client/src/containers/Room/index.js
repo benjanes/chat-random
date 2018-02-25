@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { styles } from './styles.scss';
 
 import { bindActionCreators } from 'redux';
 import { setRoomJoined } from '../../store/actions.js';
@@ -42,14 +43,32 @@ class Room extends Component {
 
 	render() {
 		return (
-			<div>
-				{ this.props.partnerHandle && <h4>Your partner is "{ this.props.partnerHandle }"</h4> }
-				{ this.props.chatMsgs.map((chat, idx) => <p key={ idx }>{ chat.handle }: { chat.msg }</p>) }
+			<main className={ `${styles}` }>
+				{ this.props.partnerHandle && <h4>Your partner is "<span className='partner-handle'>{ this.props.partnerHandle }</span>"</h4> }
+				
+				<div className='display-holder'>
+					<ul className='chat-list'>
+						{ this.props.chatMsgs.map((chat, idx) => (
+							<li
+								key={ idx }
+								className={ `chat-msg ${ chat.handle === this.props.userHandle ? 'user' : 'partner' }` }
+							>
+								{ chat.msg }
+							</li>
+						))}
+					</ul>
 
+					{
+						this.props.chatEnded &&
+						<p className='overlay'>The other user has left this chat. Click below to return to the lobby!</p>
+					}
+				</div>
+				
 				{
 					!this.props.chatEnded &&
 					<form
 						id='chat_msg_form'
+						className='chat-msg-form'
 						onSubmit={ this.handleSubmit }
 					>
 						<input
@@ -68,17 +87,21 @@ class Room extends Component {
 					</form>
 				}
 
-				{
-					this.props.chatEnded &&
-					<p>The other user has left this chat. Click below to return to the lobby!</p>
-				}
+					
+
+				<p className='instructions'>
+					ChatRandom has two special commands that can be used in the chat. Entering <b>/hop</b> will hop 
+					you out of this chat session and into another. Entering <b>/delay <i>time in ms</i> your message</b> will
+					send out a delayed message to the chat. This chat session can also be hopped out of by clicking below.
+				</p>
 
 				<button
+					className='hop-btn'
 					onClick={ this.handleLeaveBtnClick }
 				>
-					Leave this chat
+					Hop this chat
 				</button>
-			</div>
+			</main>
 		);
 	}
 }

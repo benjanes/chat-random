@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { styles } from './styles.scss';
 
 class Header extends Component {
 	constructor(props) {
@@ -8,9 +9,9 @@ class Header extends Component {
 
 	render() {
 		return (
-			<header>
-				<h1>Chat Random</h1>
-				{ this.props.userHandle && <h4>Welcome, { this.props.userHandle }</h4> }
+			<header className={ `${styles}` }>
+				<h1><span>Chat</span><span>Random</span></h1>
+				{ this.props.userHandle && <h4>Welcome, <span className='user-handle'>{ this.props.userHandle }</span></h4> }
 			</header>
 		);
 	}

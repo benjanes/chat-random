@@ -15,14 +15,13 @@ io.on('connection', function (socket) {
 
 	socket.on('setUserHandle', function(handle) {
 		chatController.addUserToLobby({ id: socket.id, handle, restrictedUsers: [ socket.id ], socket });
-
 		socket.emit('userHandleSet', handle);
 	});
 
-	// write logic for when user disconnects
 	socket.on('disconnect', () => {
 		chatController.checkRoomsForDisconnectingUser(socket.id);
 	});
+
 });
 
 server.listen(port, () => console.log(`Listening on port 8000`));

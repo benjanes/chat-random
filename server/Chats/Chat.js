@@ -1,5 +1,4 @@
 module.exports = (io, room, users, endRoom, backToLobby) => {
-
 	users.forEach((user, idx) => {
 		const otherUser = idx ? users[0] : users[1];
 
