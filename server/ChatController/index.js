@@ -1,6 +1,6 @@
-const Chat = require('./Chat.js');
+const chatRoom = require('./chatRoom.js');
 
-class Chats {
+class ChatController {
 	constructor(io) {
 		this.io = io;
 		this.lobby = [];
@@ -12,16 +12,15 @@ class Chats {
 	}
 
 	addUserToLobby(user) {
-		const availableUsers = this.lobby.reduce((avails, otherUser, idx) => {
+		const availableUserIdxs = this.lobby.reduce((avails, otherUser, idx) => {
 			if (!otherUser.restrictedUsers.includes(user.id)) avails = avails.concat([idx]);
 			return avails;
 		}, []);
 
-		// also do a check here so that a user leaving a room isn't pushed back into same room
-		if (availableUsers.length) {
-			let firstAvailableUser = this.lobby[availableUsers[0]];
-			
-			this.lobby = this.lobby.slice(0, availableUsers[0]).concat(this.lobby.slice(availableUsers[0] + 1));
+		// make sure that a user leaving a room isn't pushed back into same room
+		if (availableUserIdxs.length) {
+			let firstAvailableUser = this.lobby[availableUserIdxs[0]];
+			this.lobby = this.lobby.slice(0, availableUserIdxs[0]).concat(this.lobby.slice(availableUserIdxs[0] + 1));
 			this.establishRoom(user, firstAvailableUser);
 		} else {
 			this.lobby.push(user);
@@ -30,14 +29,14 @@ class Chats {
 
 	establishRoom(user1, user2) {
 		const room = `${user1.id}:${user2.id}`;
-		this.rooms[room] = Chat(this.io, room, [user1, user2], this.endRoom, this.addUserToLobby);
+		this.rooms[room] = chatRoom(this.io, room, [user1, user2], this.endRoom, this.addUserToLobby);
 	}
 
 	checkRoomsForDisconnectingUser(id) {
 		const targetRoom = Object.keys(this.rooms).filter(room => room.split(':').includes(id));
 
 		if (targetRoom.length) {
-			// alert other user and shutdown the room (endRoom)
+			// alert other user and shutdown the room
 			let remainingUser = targetRoom[0].split(':').filter(userId => userId !== id)[0];
 			
 			this.io.to(remainingUser).emit('chatSessionEnded');
@@ -50,4 +49,4 @@ class Chats {
 	}
 }
 
-module.exports = Chats;
+module.exports = ChatController;

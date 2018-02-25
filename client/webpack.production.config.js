@@ -38,14 +38,14 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: './index.tpl.html'
 		}),
-		// new webpack.optimize.UglifyJsPlugin({
-		// 	compressor: {
-		// 		warnings: false
-		// 	},
-		// 	comments: false,
-		// 	sourceMap: false,
-		// 	mangle: true,
-		// 	minimize: true,
-		// })
+		new webpack.optimize.UglifyJsPlugin({
+			compressor: {
+				warnings: false
+			},
+			comments: false,
+			sourceMap: false,
+			mangle: true,
+			minimize: true,
+		})
 	]
 };
