@@ -41,6 +41,11 @@ class Room extends Component {
 	}
 
 	handleSubmit(e) {
+		if (this.props.chatEnded) {
+			e.preventDefault();
+			return;
+		}
+
 		if (/\/hop/.test(this.state.msg)) {
 			this.handleLeaveBtnClick();
 			e.preventDefault();
@@ -112,28 +117,26 @@ class Room extends Component {
 						<p className='overlay'>The other user has left this chat. Click below to return to the lobby!</p>
 					}
 				</div>
-				
-				{
-					!this.props.chatEnded &&
-					<form
-						id='chat_msg_form'
-						className='chat-msg-form'
-						onSubmit={ this.handleSubmit }
+
+				<form
+					id='chat_msg_form'
+					className={ this.props.chatEnded ? 'chat-msg-form disabled' : 'chat-msg-form' }
+					onSubmit={ this.handleSubmit }
+				>
+					<input
+						type='text'
+						value={ this.state.msg }
+						onChange={ this.handleInput }
+						disabled={ this.props.chatEnded }
+					/>
+					<button
+						type='submit'
+						form='chat_msg_form'
+						value='Send'
 					>
-						<input
-							type='text'
-							value={ this.state.msg }
-							onChange={ this.handleInput }
-						/>
-						<button
-							type='submit'
-							form='chat_msg_form'
-							value='Send'
-						>
-							Send
-						</button>
-					</form>
-				}
+						Send
+					</button>
+				</form>
 
 				<p className='instructions'>
 					ChatRandom has two special commands that can be used in the chat. Entering <b>/hop</b> will hop 

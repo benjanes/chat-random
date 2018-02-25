@@ -99,6 +99,8 @@
 	.chat-msg-form {
 		width: 100%;
 		margin: 0 auto 0 0;
+		opacity: 1;
+		transition: opacity 0.4s;
 
 		input {
 			height: 50px;
@@ -109,6 +111,20 @@
 		button {
 			height: 50px;
 			width: 49px;
+		}
+
+		&.disabled {
+			opacity: 0.5;
+
+			button {
+				cursor: default;
+				background-color: transparent;
+
+				&:hover, &:focus {
+					background-color: transparent;
+					color: $offWhite;
+				}
+			}
 		}
 	}
 
