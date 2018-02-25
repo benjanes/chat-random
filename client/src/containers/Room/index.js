@@ -33,7 +33,6 @@ class Room extends Component {
 		// console.log('scroll top:', this.display.scrollTop);
 
 		const diff = this.list.offsetHeight - this.display.offsetHeight;
-		console.log(diff)
 
 		if (diff) {
 			this.display.scrollTop = diff;
@@ -45,14 +44,14 @@ class Room extends Component {
 	}
 
 	handleSubmit(e) {
-		if (/\\hop/.test(this.state.msg)) {
+		if (/\/hop/.test(this.state.msg)) {
 			this.handleLeaveBtnClick();
 			e.preventDefault();
 			return;
 		}
 
-		if (/^\\delay\s\d+\s.+/.test(this.state.msg)) {
-			this.state.msg.replace(/^\\delay\s(\d+)\s(.+)/, (match, dur, msg) => {
+		if (/^\/delay\s\d+\s.+/.test(this.state.msg)) {
+			this.state.msg.replace(/^\/delay\s(\d+)\s(.+)/, (match, dur, msg) => {
 				let sendMsg = () => {
 					this.props.sendMsg({
 						msg,
