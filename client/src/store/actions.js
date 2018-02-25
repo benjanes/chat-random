@@ -1,4 +1,3 @@
-
 export const SET_USER_HANDLE = 'SET_USER_HANDLE';
 const setUserHandle = handle => {
 	return {

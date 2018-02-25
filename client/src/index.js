@@ -2,19 +2,16 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 
-import { styles } from './styles/main.scss';
-import { initSocketConnection, addSocketHandlers, createSocketDispatch } from './socket';
-
-import App from './components/App';
+import { initSocketConnection, addHandlersAndCreateDispatch } from './socket';
 import configureStore from './store/configureStore';
 import { socketActions } from './store/actions.js';
 
+import App from './components/App';
+import { styles } from './styles/main.scss';
+
 const store = configureStore({});
 const socket = initSocketConnection();
-
-// combine these
-const socketDispatch = createSocketDispatch(store, socket, socketActions);
-addSocketHandlers(store, socket, socketActions);
+const socketDispatch = addHandlersAndCreateDispatch(store, socket, socketActions);
 
 render(
 	<Provider store={ store }>

@@ -4,10 +4,10 @@ import { createLogger } from 'redux-logger';
 // import reducers
 import appData from './reducer';
 
-const rootReducer = combineReducers({
-	// list reducers
-	appData,
-});
+// const rootReducer = combineReducers({
+// 	// list reducers
+// 	appData,
+// });
 
 export default function configureStore(initialState) {
 	const logger = createLogger({
@@ -16,7 +16,7 @@ export default function configureStore(initialState) {
 	});
 
 	const store = createStore(
-		rootReducer,
+		appData,
 		initialState,
 		applyMiddleware(logger)
 	);

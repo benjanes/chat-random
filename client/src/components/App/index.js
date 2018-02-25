@@ -17,25 +17,22 @@ class App extends Component {
 			<div>
 				<Header/>
 				
-					{ !this.props.userHandle && <HandleInput setUserHandle={ this.props.socketDispatch.setUserHandle }/> }
-					{ this.props.userHandle && !this.props.roomJoined && <Lobby /> }
-					{ this.props.userHandle && this.props.roomJoined &&
-						<Room
-							sendMsg={ this.props.socketDispatch.sendMsg }
-							leaveChat={ this.props.socketDispatch.leaveChatSession }
-						/>
-					}
+				{ !this.props.userHandle && <HandleInput setUserHandle={ this.props.socketDispatch.setUserHandle }/> }
+				{ this.props.userHandle && !this.props.roomJoined && <Lobby /> }
+				{ this.props.userHandle && this.props.roomJoined &&
+					<Room
+						sendMsg={ this.props.socketDispatch.sendMsg }
+						leaveChat={ this.props.socketDispatch.leaveChatSession }
+					/>
+				}
 				
 			</div>
 		);
 	}
 }
 
-function mapStateToProps({ appData }) {
-	return {
-		userHandle: appData.userHandle,
-		roomJoined: appData.roomJoined
-	};
+function mapStateToProps({ userHandle, roomJoined }) {
+	return { userHandle, roomJoined };
 }
 
 export default connect(mapStateToProps)(App);

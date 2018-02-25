@@ -15,7 +15,7 @@ const initialState = {
 	chatMsgs: []
 };
 
-export default function appData(state = initialState, action) {
+export default function appReducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_USER_HANDLE:
 			return Object.assign({}, state, { userHandle: action.payload });

@@ -17,10 +17,8 @@ class Header extends Component {
 	}
 }
 
-function mapStateToProps({ appData }) {
-	return {
-		userHandle: appData.userHandle
-	};
+function mapStateToProps({ userHandle }) {
+	return { userHandle };
 }
 
 export default connect(mapStateToProps)(Header);

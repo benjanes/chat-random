@@ -160,13 +160,8 @@ function mapDispatchToProps(dispatch) {
 	return bindActionCreators({ setRoomJoined }, dispatch);
 }
 
-function mapStateToProps({ appData }) {
-	return {
-		chatMsgs: appData.chatMsgs,
-		userHandle: appData.userHandle,
-		partnerHandle: appData.partnerHandle,
-		chatEnded: appData.chatEnded
-	};
+function mapStateToProps({ chatMsgs, userHandle, partnerHandle, chatEnded }) {
+	return { chatMsgs, userHandle, partnerHandle, chatEnded };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Room);
