@@ -10,12 +10,34 @@ class Room extends Component {
 		super(props);
 
 		this.state = {
-			msg: ''
+			msg: '',
+			timers: []
 		};
 
+		this.scrollDisplay = this.scrollDisplay.bind(this);
 		this.handleInput = this.handleInput.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleLeaveBtnClick = this.handleLeaveBtnClick.bind(this);
+	}
+
+	componentDidUpdate(prevProps) {
+		// console.log(lastProps.chatMsgs);
+		if (prevProps.chatMsgs.length !== this.props.chatMsgs.length) {
+			// scroll the box
+			this.scrollDisplay();
+		}
+	}
+
+	scrollDisplay() {
+		// console.log(this.list.offsetHeight);
+		// console.log('scroll top:', this.display.scrollTop);
+
+		const diff = this.list.offsetHeight - this.display.offsetHeight;
+		console.log(diff)
+
+		if (diff) {
+			this.display.scrollTop = diff;
+		}
 	}
 
 	handleInput(e) {
@@ -30,7 +52,19 @@ class Room extends Component {
 		}
 
 		if (/^\\delay\s\d+\s.+/.test(this.state.msg)) {
-			// todo: process the string
+			this.state.msg.replace(/^\\delay\s(\d+)\s(.+)/, (match, dur, msg) => {
+				let sendMsg = () => {
+					this.props.sendMsg({
+						msg,
+						handle: this.props.userHandle
+					});
+				};
+				this.setState({ msg: '' });
+				this.state.timers.push(setTimeout(sendMsg, parseInt(dur)));
+			});
+
+			e.preventDefault();
+			return;
 		}
 
 		this.props.sendMsg({
@@ -44,6 +78,7 @@ class Room extends Component {
 
 	handleLeaveBtnClick(e) {
 		this.props.leaveChat(true);
+		this.state.timers.forEach(timer => clearTimeout(timer));
 		
 		// automatically bump to lobby by updating roomJoined
 		this.props.setRoomJoined(false);
@@ -56,8 +91,14 @@ class Room extends Component {
 			<main className={ `${styles}` }>
 				{ this.props.partnerHandle && <h4>Your partner is "<span className='partner-handle'>{ this.props.partnerHandle }</span>"</h4> }
 				
-				<div className='display-holder'>
-					<ul className='chat-list'>
+				<div
+					className='display-holder'
+					ref={ display => this.display = display }
+				>
+					<ul
+						className='chat-list'
+						ref={ list => this.list = list }
+					>
 						{ this.props.chatMsgs.map((chat, idx) => (
 							<li
 								key={ idx }
