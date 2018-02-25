@@ -6,7 +6,7 @@ import { initSocketConnection, addHandlersAndCreateDispatch } from './socket';
 import configureStore from './store/configureStore';
 import { socketActions } from './store/actions.js';
 
-import App from './components/App';
+import App from './containers/App';
 import { styles } from './styles/main.scss';
 
 const store = configureStore({});

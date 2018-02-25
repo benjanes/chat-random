@@ -18,10 +18,10 @@ class Room extends Component {
 		this.handleInput = this.handleInput.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleLeaveBtnClick = this.handleLeaveBtnClick.bind(this);
+		this.sendMsg = this.sendMsg.bind(this);
 	}
 
 	componentDidUpdate(prevProps) {
-		// console.log(lastProps.chatMsgs);
 		if (prevProps.chatMsgs.length !== this.props.chatMsgs.length) {
 			// scroll the box
 			this.scrollDisplay();
@@ -29,9 +29,6 @@ class Room extends Component {
 	}
 
 	scrollDisplay() {
-		// console.log(this.list.offsetHeight);
-		// console.log('scroll top:', this.display.scrollTop);
-
 		const diff = this.list.offsetHeight - this.display.offsetHeight;
 
 		if (diff) {
@@ -52,12 +49,7 @@ class Room extends Component {
 
 		if (/^\/delay\s\d+\s.+/.test(this.state.msg)) {
 			this.state.msg.replace(/^\/delay\s(\d+)\s(.+)/, (match, dur, msg) => {
-				let sendMsg = () => {
-					this.props.sendMsg({
-						msg,
-						handle: this.props.userHandle
-					});
-				};
+				let sendMsg = () => this.sendMsg(msg);
 				this.setState({ msg: '' });
 				this.state.timers.push(setTimeout(sendMsg, parseInt(dur)));
 			});
@@ -66,11 +58,7 @@ class Room extends Component {
 			return;
 		}
 
-		this.props.sendMsg({
-			msg: this.state.msg,
-			handle: this.props.userHandle
-		});
-
+		this.sendMsg(this.state.msg);
 		this.setState({ msg: '' });
 		e.preventDefault();
 	}
@@ -85,10 +73,19 @@ class Room extends Component {
 		if (e) e.preventDefault();
 	}
 
+	sendMsg(msg) {
+		this.props.sendMsg({
+			msg,
+			handle: this.props.userHandle
+		});
+	}
+
 	render() {
 		return (
 			<main className={ `${styles}` }>
-				{ this.props.partnerHandle && <h4>Your partner is "<span className='partner-handle'>{ this.props.partnerHandle }</span>"</h4> }
+				{ this.props.partnerHandle &&
+					<h4>Your partner is "<span className='partner-handle'>{ this.props.partnerHandle }</span>"</h4>
+				}
 				
 				<div className='display-holder'>
 					<div
@@ -129,7 +126,6 @@ class Room extends Component {
 							onChange={ this.handleInput }
 						/>
 						<button
-							style={{ opacity: this.props.chatEnded ? 0.5 : 1 }}
 							type='submit'
 							form='chat_msg_form'
 							value='Send'

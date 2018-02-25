@@ -10,8 +10,12 @@ class Header extends Component {
 	render() {
 		return (
 			<header className={ `${styles}` }>
-				<h1><span>Chat</span><span>Random</span></h1>
-				{ this.props.userHandle && <h4>Welcome, <span className='user-handle'>{ this.props.userHandle }</span></h4> }
+				<h1>
+					<span>Chat</span><span>Random</span>
+				</h1>
+				{ this.props.userHandle &&
+					<h4>Welcome, <span className='user-handle'>{ this.props.userHandle }</span></h4>
+				}
 			</header>
 		);
 	}

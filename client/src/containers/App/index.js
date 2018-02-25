@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-// components
-import Header from '../../containers/Header';
-import HandleInput from '../HandleInput';
-import Lobby from '../Lobby';
-import Room from '../../containers/Room';
+// components & containers
+import Header from '../Header';
+import HandleInput from '../../components/HandleInput';
+import Lobby from '../../components/Lobby';
+import Room from '../Room';
 
 class App extends Component {
 	constructor(props) {
@@ -17,8 +17,12 @@ class App extends Component {
 			<div>
 				<Header/>
 				
-				{ !this.props.userHandle && <HandleInput setUserHandle={ this.props.socketDispatch.setUserHandle }/> }
-				{ this.props.userHandle && !this.props.roomJoined && <Lobby /> }
+				{ !this.props.userHandle &&
+					<HandleInput setUserHandle={ this.props.socketDispatch.setUserHandle }/>
+				}
+				{ this.props.userHandle && !this.props.roomJoined &&
+					<Lobby />
+				}
 				{ this.props.userHandle && this.props.roomJoined &&
 					<Room
 						sendMsg={ this.props.socketDispatch.sendMsg }
@@ -36,4 +40,3 @@ function mapStateToProps({ userHandle, roomJoined }) {
 }
 
 export default connect(mapStateToProps)(App);
-
