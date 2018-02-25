@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --port 4000 --config ./client/webpack.config.js",
-    "build": "rimraf client/dist && webpack --config ./client/webpack.production.config.js --progress --profile --colors"
+    "build": "rimraf client/dist && webpack --config ./client/webpack.production.config.js --progress --profile --colors",
+    "start": "node index.js"
   },
   "author": "Ben Janes",
   "license": "ISC",
