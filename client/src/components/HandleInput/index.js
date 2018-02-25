@@ -7,7 +7,8 @@ export default class HandleForm extends Component {
 		super(props);
 
 		this.state = {
-			userHandle: ''
+			userHandle: '',
+			isWarned: false
 		};
 
 		this.handleInput = this.handleInput.bind(this);
@@ -19,9 +20,13 @@ export default class HandleForm extends Component {
 	}
 
 	handleSubmit(e) {
-		// dispatch to redux
 		e.preventDefault();
-		this.props.setUserHandle(this.state.userHandle);
+
+		if (this.state.userHandle.length) {
+			this.props.setUserHandle(this.state.userHandle);
+		} else {
+			this.setState({ isWarned: true });
+		}
 	}
 
 	render() {
@@ -46,6 +51,7 @@ export default class HandleForm extends Component {
 					>
 						Let&rsquo;s Chat
 					</button>
+					{ this.state.isWarned && <p className='warning'>Handle cannot be an empty string!</p> }
 				</div>
 				<p className='instructions'>Enter your handle and we&rsquo;ll pair you with the first available rando. Hop off any time you'd like using <i>/hop</i> and we&rsquo;ll pair you up with someone new.</p>
 			</main>

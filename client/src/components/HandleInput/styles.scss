@@ -2,18 +2,27 @@
 
 :local(.styles) {
 	padding-top: 60px;
-	// form {
 
-	// }
 	.form-holder {
 		display: flex;
 		width: 365px;
 		justify-content: center;
 		margin: 0 auto;
-
+		position: relative;
 	}
 
-	
+	.warning {
+		font-size: 11px;
+		position: absolute;
+		width: 100%;
+		top: 100%;
+		left: 0;
+		text-align: center;
+		color: #FA6900;
+		margin-top: 6px;
+		opacity: 1;
+		animation: fadeIn 0.4s forwards;
+	}	
 
 	.instructions {
 		font-weight: 300;

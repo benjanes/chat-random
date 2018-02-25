@@ -90,24 +90,26 @@ class Room extends Component {
 			<main className={ `${styles}` }>
 				{ this.props.partnerHandle && <h4>Your partner is "<span className='partner-handle'>{ this.props.partnerHandle }</span>"</h4> }
 				
-				<div
-					className='display-holder'
-					ref={ display => this.display = display }
-				>
-					<ul
-						className='chat-list'
-						ref={ list => this.list = list }
+				<div className='display-holder'>
+					<div
+						className='chat-holder'
+						ref={ display => this.display = display }
 					>
-						{ this.props.chatMsgs.map((chat, idx) => (
-							<li
-								key={ idx }
-								className={ `chat-msg ${ chat.handle === this.props.userHandle ? 'user' : 'partner' }` }
-							>
-								{ chat.msg }
-							</li>
-						))}
-					</ul>
+						<ul
+							className='chat-list'
+							ref={ list => this.list = list }
+						>
+							{ this.props.chatMsgs.map((chat, idx) => (
+								<li
+									key={ idx }
+									className={ `chat-msg ${ chat.handle === this.props.userHandle ? 'user' : 'partner' }` }
+								>
+									{ chat.msg }
+								</li>
+							))}
+						</ul>
 
+					</div>
 					{
 						this.props.chatEnded &&
 						<p className='overlay'>The other user has left this chat. Click below to return to the lobby!</p>
@@ -137,11 +139,9 @@ class Room extends Component {
 					</form>
 				}
 
-					
-
 				<p className='instructions'>
 					ChatRandom has two special commands that can be used in the chat. Entering <b>/hop</b> will hop 
-					you out of this chat session and into another. Entering <b>/delay <i>time in ms</i> your message</b> will
+					you out of this chat session and into another. Entering <b>/delay <i>time_in_ms</i> your message</b> will
 					send out a delayed message to the chat. This chat session can also be hopped out of by clicking below.
 				</p>
 
